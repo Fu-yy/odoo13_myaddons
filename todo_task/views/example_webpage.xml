@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="example_page" name="Book List">
+        <div id="wrap" class="container">
+            <h1>Books</h1>
+            <t t-foreach="todos" t-as="todo">
+                <div class="row">
+                    <span t-field="todo.name" />,
+                    <span t-field="todo.id" />,
+                    <span t-field="todo.test_field" />
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>

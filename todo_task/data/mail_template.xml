@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="test_mail_template" model="mail.template">
+        <field name="name">Book Return Reminder</field>
+        <field name="email_from">${object.create_uid.email}</field>
+        <field name="email_to">${object.create_uid.email}</field>
+        <field name="subject">Reminder for book return</field>
+        <field name="model">todo.task</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>Dear ${object.create_uid.name},</p>
+                <p>You had rented the
+                <b>${object.name}</b> book on
+                ${format_date(object.deadline)}
+                <br/>
+                The due date of book is <b
+                style="color:red;">${format_date(object.create_date)}.</b>
+                </p>
+                <br/>
+                <p>Best regards,
+                <br/> Librarian</p>
+                ]]>
+        </field>
+    </record>
+</odoo>

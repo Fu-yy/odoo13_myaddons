@@ -1,0 +1,35 @@
+<odoo>
+
+        <record id="send_msg_template" model="mail.template">
+            <field name="name">邮件提醒</field>
+            <field name="email_from">${object.sudo().create_uid.email_formatted | safe}</field>
+            <field name="subject">${object.name}</field>
+            <field name="model">todo.task</field>
+            <field name="email_to">
+                1198819847@qq.com
+<!--                ${(object.email)}-->
+            </field>
+            <field name="body_html" type="html">
+                <html>
+                    <head>
+                        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+                        <title>设备到期提醒</title>
+                        <style>
+                            span.oe_mail_footer_access {
+                            display:block;
+                            text-align:center;
+                            color:grey;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div style="border-radius: 2px; max-width: 1200px; height: auto;margin-left: auto;margin-right: auto;background-color:#f9f9f9;">
+                            <div style="height:auto;text-align: center;font-size : 30px;color: #8A89BA;">
+                                <strong>你借用的设备逾期了，请及时归还！</strong>
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            </field>
+        </record>
+ </odoo>

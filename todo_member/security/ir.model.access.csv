@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_todo_member_todo_member,todo_member.todo_member,model_todo_member_todo_member,base.group_user,1,1,1,1

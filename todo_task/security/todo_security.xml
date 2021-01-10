@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="module_todo_category" model="ir.module.category">
+        <field name="name">Todo</field>
+    </record>
+
+
+<!--    此处添加访问权限
+    添加了三个字段：
+     name：组名
+     category_id：关联应⽤，这是⼀个关联字段，因此使⽤了 ref 属性来通过 XML ID 连接已创建的分类
+     implied_ids：这是⼀个one-to-many关联字段，包含⼀系列组来对组内⽤户⽣效。
+    使⽤了编号4来连接基本内部⽤户组base.group_user
+    同时创建管理员组，授予⽤户组的所有权限以及为应⽤管理员保留的其它权限：
+        像⽤户组⼀样，这⾥也有name, category_id和implied_ids ，
+        implied_ids关联了图书⽤户组，以继承其权限。还添加了⼀个 users 字段，
+        让管理员和内部 root ⽤户⾃动成为应⽤管理员。
+
+
+
+-->
+    <!-- Todo User Group -->
+    <record id="todo_group_user" model="res.groups">
+        <field name="name">普通用户</field>
+        <field name="category_id" ref="module_todo_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <!-- Todo Manager Group -->
+    <record id="todo_group_manager" model="res.groups">
+        <field name="name">管理员</field>
+        <field name="category_id" ref="module_todo_category"/>
+        <!-- 包括普通用户的权限   -->
+        <field name="implied_ids" eval="[(4, ref('todo_group_user'))]"/>
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_admin'))
+            ]"
+        />
+    </record>
+</odoo>

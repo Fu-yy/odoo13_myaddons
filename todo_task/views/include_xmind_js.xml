@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+         <template id="load_xmind" name="load_xmind" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link type="text/css" rel="stylesheet" href="/todo_task/static/src/style/jsmind.css" />
+                <script type="text/javascript" src="/todo_task/static/src/js/jsmind.js"></script>
+                <script type="text/javascript" src="/todo_task/static/src/js/jsmind.screenshot.js"></script>
+<!--                <script type="text/javascript" src="/todo_task/static/src/js/echarts.min.js"></script>-->
+<!--                <script type="text/javascript" src="/todo_task/static/src/js/load_echarts.js"></script>-->
+            </xpath>
+        </template>
+    </data>
+</odoo>
