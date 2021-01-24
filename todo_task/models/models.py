@@ -34,14 +34,21 @@ class TodoTask(models.Model):
     is_expired = fields.Boolean(string="是否过期", compute="_compute_is_expired")
     category_id = fields.Many2one(string="类别", comodel_name="todo.category")
     test_field = fields.Char(string="测试字段", compute="_compute_test_field", store=True)
+    group_emails = fields.Char(string="所在组成员", compute="_compute_group_emails", store=True)
+
     # test = fields.Char("shifou", required=True)
 
     @api.depends("category_id")
     def _compute_test_field(self):
+
         for res in self:
+
+            print(res.create_uid.id)
+            print("res.create_uid")
+            print(type(res.create_uid))
             print(type(res.category_id))
             print(res.category_id)
-            if(res.category_id == 1):
+            if res.category_id.id == 1:
                 res.test_field = "为1"
                 print("发邮件了")
                 # TodoTask.action.sendMail()
@@ -50,10 +57,24 @@ class TodoTask(models.Model):
                 # TodoTask.action.sendMail()
                 print("发邮件了2222")
 
+    @api.depends("group_emails")
+    def _compute_group_emails(self):
+        """
+        此方法通过create_uid查询到所在组，同时将当前组的组员邮箱地址拼接起来，方便前台获取
+        :return:
+        """
+        for res in self:
+            ids = res.create_uid.groups_id.users        # 根据当前这条数据的创建人的所在组下的所有组员
+            email_str = ""
+            for email in ids:
+                print(email.email)
+                email_str += email.email + ','          # 将查询到的email邮箱拼接成字符串
+            res.group_emails = email_str.strip(',')     # 将邮箱字符串最后一个逗号删除，因为多个收件人中间只能由逗号隔开，而且如果最后一个字符是逗号会发送失败
+
     @api.depends("deadline")
     def _compute_is_expired(self):
         for res in self:
-            if(res.deadline):
+            if res.deadline:
                 res.is_expired = res.deadline < fields.Datetime.now()
             else:
                 res.is_expired = False
@@ -64,10 +85,7 @@ class TodoTask(models.Model):
         print(template_id)
         print(template_id.id)
         # 这里报错
-        # self.message_post_with_template(template_id.id)
-
-
-
+        self.message_post_with_template(template_id.id)
 
         # self.ensure_one()
         # if not self.head_user.email:
@@ -76,7 +94,6 @@ class TodoTask(models.Model):
         # if template_id:
         #     # 调用了/addons/mail/models/mail_template.py的send_mail()，参数1(res_id)是呈现模板的记录的id,force_send:是否立即发送(否则使用邮件队列)
         #     template_id.sudo().with_context(lang=self.env.context.get('lang')).send_mail(self.id, force_send=True)
-
 
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)

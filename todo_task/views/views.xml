@@ -42,6 +42,7 @@
                                         <field name="deadline"/>
                                         <field name="is_expired"/>
                                         <field name="category_id"/>
+
                                         <field name="test_field" class="testclass"/>
                                     </tree>
                                 </field>
@@ -95,6 +96,7 @@
                                 <field name="deadline"/>
                                 <field name="is_expired"/>
                                 <field name="category_id"/>
+                                <field name="group_emails"/>
                             </group>
                         </group>
                     </sheet>
