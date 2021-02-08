@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dishes_management_dishes_management,dishes_management.dishes_management,model_dishes_management_dishes_management,group_dishes_manager,1,1,1,1
+access_dishes_management_dishes_management2,dishes_management.dishes_management2,model_dishes_management_dishes_management,group_dishes_user,1,0,0,1
